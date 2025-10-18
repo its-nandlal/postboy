@@ -1,14 +1,18 @@
 import { currentUser } from '@/modules/authentication/actions'
 import Header from '@/modules/layout/components/header'
+import { initializeWorkspace } from '@/modules/workspace/actions'
 import React, { PropsWithChildren } from 'react'
 
 async function RootLayout({children}: PropsWithChildren) {
 
+  const workspace = await initializeWorkspace()
   const user = await currentUser()
+
+  console.log(workspace)
 
   return (
     <>
-      {/* @ts-ignore */}
+      {/* @ts-expect-error Server Component */}
       <Header user={user} />
 
 
