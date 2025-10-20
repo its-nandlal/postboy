@@ -8,7 +8,6 @@ async function RootLayout({children}: PropsWithChildren) {
   const workspace = await initializeWorkspace()
   const user = await currentUser()
 
-  console.log(workspace)
 
   return (
     <>
