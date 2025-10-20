@@ -55,7 +55,7 @@ export const initializeWorkspace = async () => {
 
 }
 
-export const getWorkspace = async () => {
+export const getWorkspaces = async () => {
     const user = await currentUser()
 
     if(!user) throw new Error("Unauthorized")
@@ -73,7 +73,7 @@ export const getWorkspace = async () => {
     return workspaces
 }
 
-export const createWorkspaces = async (name: string) => {
+export const createWorkspace = async (name: string) => {
     const user = await currentUser()
 
     if(!user) throw new Error("Unauthorized")
@@ -96,12 +96,11 @@ export const createWorkspaces = async (name: string) => {
 
 
 export const getWorkspaceById = async (id: string) => {
-    const workspace = await prisma.workspace.findUnique({
-        where:{id},
-        include:{
-            members: true
-        }
-    })
-
-    return workspace
-}
+  const workspace = await prisma.workspace.findUnique({
+    where: { id },
+    include: {
+      members: true,
+    },
+  });
+  return workspace;
+};
