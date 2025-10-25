@@ -10,6 +10,7 @@ import TabbedSidebar from "@/modules/workspace/components/sidebar";
 import { useWorkspacesStore } from "@/modules/layout/store";
 import { useGetWorkspace } from "@/modules/workspace/hooks/workspace";
 import { Loader } from "lucide-react";
+import RequestPlaygrount from "@/modules/request/components/request-playgrount";
 
 export default  function Home() {
 
@@ -29,7 +30,7 @@ export default  function Home() {
     <>
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel defaultSize={65} minSize={40}>
-        <h1>Request Playground</h1>
+        <RequestPlaygrount/>
       </ResizablePanel>
       <ResizableHandle withHandle />
 

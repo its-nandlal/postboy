@@ -14,6 +14,7 @@ import { useGetRequestFromCollection } from '@/modules/request/hooks/request';
 import { REST_METHOD } from '@prisma/client';
 import { CollapsibleContent } from '@radix-ui/react-collapsible';
 import DeleteRequestModel from '@/modules/request/components/delete-request-model';
+import { useRequestPlaygroundStore } from '@/modules/request/store/useRequestStore';
 
 interface CollectionFolderProps{
     collection:{
@@ -34,7 +35,7 @@ function CollectionFolder({collection}:CollectionFolderProps) {
     requestName: "" 
    })
    const [isCollapsed, setIsCollapsed] = useState(false)
-
+   const {openRequestTab} = useRequestPlaygroundStore()
   
   const requestColorMap: Record<REST_METHOD, string> = {
     [REST_METHOD.GET]: "text-green-500",
@@ -138,6 +139,7 @@ function CollectionFolder({collection}:CollectionFolderProps) {
                 {requestData.map(request => (
                   <div
                   key={request.id}
+                  onClick={() => openRequestTab(request)}
                   className='flex items-center justify-between py-2 px-3 hover:bg-zinc-900/50 rounded-md cursor-pointer group transition-colors'>
                   <div className='flex items-center space-x-3 flex-1'>
                     <div className='flex items-center space-x-2'>
