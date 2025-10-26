@@ -1,5 +1,5 @@
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query"
-import {addRequestToCollection, saveRequest, getAllRequestFromCollection, Request, deleteRequest, editRequest} from "../actions"
+import {addRequestToCollection, saveRequest, getAllRequestFromCollection, Request, deleteRequest, editRequest, run} from "../actions"
 import { useRequestPlaygroundStore } from "../store/useRequestStore"
 
 
@@ -58,6 +58,22 @@ export function useEditRequest (id: string) {
         
         onSuccess: ()=>{
             queryClient.invalidateQueries({queryKey: ["request"]})
+        }
+    })
+}
+
+
+export function useRunRequest(requestId: string){
+    const {setResponseViewerData} = useRequestPlaygroundStore()
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: async()=> await run(requestId),
+
+        onSuccess: (data)=>{
+            queryClient.invalidateQueries({queryKey: ["request"]})
+            // @ts-ignore
+            setResponseViewerData(data)
         }
     })
 }

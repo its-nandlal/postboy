@@ -4,6 +4,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Send } from 'lucide-react';
+import { useRunRequest } from '../hooks/request';
+import { toast } from 'sonner';
 
 interface RequestBarProps {
     tab: RequestTab;
@@ -12,6 +14,7 @@ interface RequestBarProps {
 
 function RequestBar({tab, updateTab}: RequestBarProps) {
   
+  const { mutateAsync, isPending } = useRunRequest(tab.requestId!)
 
   const requestColorMap: Record<string, string> = {
     GET: "text-green-500",
@@ -22,7 +25,13 @@ function RequestBar({tab, updateTab}: RequestBarProps) {
   }
 
   const onSendRequest = async () => {
-
+    try {
+      const res = await mutateAsync()
+      toast.success("Request send successfully")
+    } catch (error) {
+      toast.error("Failed to send request")
+      console.error("Failed to send request ", error)
+    }
   }
 
   return (
@@ -52,7 +61,7 @@ function RequestBar({tab, updateTab}: RequestBarProps) {
         <Button
         type="submit"
         onClick={onSendRequest}
-        // disabled={isPending || !tab.url}
+        disabled={isPending || !tab.url}
         >
             <Send className='mr-2'/>
             Send
