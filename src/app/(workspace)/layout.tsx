@@ -1,6 +1,7 @@
 import { currentUser } from '@/modules/authentication/actions'
 import Header from '@/modules/layout/components/header'
 import { initializeWorkspace } from '@/modules/workspace/actions'
+import TabbedLeftPanel from '@/modules/workspace/components/tabed-left-panel'
 import React, { PropsWithChildren } from 'react'
 
 async function RootLayout({children}: PropsWithChildren) {
@@ -18,7 +19,9 @@ async function RootLayout({children}: PropsWithChildren) {
       {/* Main Container*/}
       <main className='max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] flex flex-1 overflow-hidden'>
           <div className='w-full h-full flex text-white'>
-
+            <div className='w-12 border-zinc-800 bg-zinc-900'>
+              <TabbedLeftPanel />
+            </div>
 
             <div className='flex-1 bg-zinc-900'>
                 {children}
